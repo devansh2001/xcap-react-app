@@ -25,10 +25,11 @@ class App extends Component {
   createServerRequest = async() => {
     console.log('in server req method');
     let apiResponse = null;
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({"body":{"test":["one","two"]}});
+    // var raw = JSON.stringify({"body":{"test":["one","two"]}});
 
     var requestOptions = {
       method: 'POST',
@@ -36,14 +37,16 @@ class App extends Component {
       body: window.myKeySet,
     };
 
-    await fetch("http://localhost:5000/get-questions", requestOptions)
+    const url = 'http://localhost:5000';
+
+    await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
     .then(result => apiResponse = result)
     .then(data => this.updateState(data))
     .catch(error => console.log('error', error));
 
     await console.log(apiResponse);
-    // const url = 'http://localhost:5000';
+    
     
 
     // var myHeaders = new Headers();
