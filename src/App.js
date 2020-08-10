@@ -117,7 +117,7 @@ class App extends Component {
               Learn React
             </a>
           </header> */}
-          <ul>{this.pprint(this.state.data)}</ul>
+          {/* <ul>{this.pprint(this.state.data)}</ul> */}
           
           <QuestionContainer questions={this.state.data}/>
         </div>
