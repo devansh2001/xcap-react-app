@@ -3,7 +3,6 @@ import Question from './Question';
 import { Container, Row, Form, FormControl, InputGroup } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
-
 class QuestionContainer extends Component {
     constructor(props) {
         super(props);
@@ -43,6 +42,26 @@ class QuestionContainer extends Component {
         });
     }
 
+    handleLikertChange = (value, question_id) => {
+        console.log(value);
+        console.log(question_id);
+        let responses = this.state.responses;
+        responses.set(question_id, value);
+        this.setState({
+            responses: responses
+        })
+    }
+
+    getSpaces = (question_id) => {
+        let split = question_id.split("_");
+        let num = parseInt(split[1]);
+        let ret = ''
+        for (let i = 0; i < num; i++) {
+            ret += ' '
+        }
+        return ret;
+    }
+
     getResponseValues = (data) => {
         if (data === undefined) {
             return;
@@ -54,18 +73,13 @@ class QuestionContainer extends Component {
             let responseValues = data['response_values'];
             let ui = [];
             for (let i = 0; i < responseValues.length; i++) {
-
                 let item = (
-
                     <InputGroup className="mb-3" question_id={data['question_id']} name={responseValues[i]} >
-                    
                         <InputGroup.Prepend>
                             <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
                         </InputGroup.Prepend>
-                        <FormControl question_id={'question_id'} name={responseValues[i]} aria-label="Text input with checkbox" value={responseValues[i]} />
-                    
+                        <FormControl question_id={data['question_id']} name={responseValues[i]} aria-label="Text input with checkbox" value={responseValues[i]} />
                     </InputGroup>
-                    
                 );
                 ui.push(item);
             }
@@ -73,20 +87,19 @@ class QuestionContainer extends Component {
         }
 
         if (responseType === 'LIKERT_SCALE') {
-            const options = {
+            
+            let options = {
+                question: this.getSpaces(data['question_id']),
                 responses: [
                     { value : 1, text: 'Not at all Concerned'},
-                    { value : 2, text: 'Slightly concerned'},
-                    { value : 3, text: 'Concerned'},
-                    { value : 4, text: 'Little Concerned'},
+                    { value : 2, text: 'Slightly Concerned'},
+                    { value : 3, text: 'Undecided'},
+                    { value : 4, text: 'Somewhat Concerned'},
                     { value : 5, text: 'Very Concerned'}
                 ],
-                picked: (val) => {
-                    console.log(val);
-                }
+                picked: (val) => this.handleLikertChange(val, data['question_id'])
             }
-
-            return (<Likert {...options} />)
+            return (<div><Likert {...options} /></div>)
         }
 
     }
@@ -103,14 +116,14 @@ class QuestionContainer extends Component {
         console.log(this.state)
         for (let i = 0; i < data.length; i++) {
             let item = (
-                <div>
-                <Row>
-                    <p>{data[i]['text']}</p>
-                    <hr/>
-                    {this.getResponseValues(data[i])}
-                    <br/>
-                    <hr/>
-                </Row>
+                <div className={'individual-question'}>
+                    <Row>
+                        <p>{data[i]['text']}</p>
+                        <hr/>
+                        {this.getResponseValues(data[i])}
+                        <br/>
+                        <hr/>
+                    </Row>
                 <hr/>
                 </div>
             )
@@ -138,9 +151,7 @@ class QuestionContainer extends Component {
         return (
             <div>
                 <Container>
-                {/* {this.state.data} */}
                     {this.pprint(this.state.data)}
-                    {/* {this.chooseRenderItem()} */}
                 </Container>
             </div>
         );

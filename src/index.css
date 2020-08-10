@@ -15,3 +15,7 @@ code {
 .outer {
   text-align: left;
 }
+
+.individual-question {
+  margin: 20px;
+}
