@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import { Container, Row, Form, FormControl, InputGroup } from 'react-bootstrap';
-import CheckboxGroup from 'react-checkbox-group'
+import Likert from 'react-likert-scale';
 
 
 class QuestionContainer extends Component {
@@ -72,6 +72,23 @@ class QuestionContainer extends Component {
             return ui;
         }
 
+        if (responseType === 'LIKERT_SCALE') {
+            const options = {
+                responses: [
+                    { value : 1, text: 'Not at all Concerned'},
+                    { value : 2, text: 'Slightly concerned'},
+                    { value : 3, text: 'Concerned'},
+                    { value : 4, text: 'Little Concerned'},
+                    { value : 5, text: 'Very Concerned'}
+                ],
+                picked: (val) => {
+                    console.log(val);
+                }
+            }
+
+            return (<Likert {...options} />)
+        }
+
     }
 
     pprint = (data) => {
@@ -86,12 +103,16 @@ class QuestionContainer extends Component {
         console.log(this.state)
         for (let i = 0; i < data.length; i++) {
             let item = (
+                <div>
                 <Row>
                     <p>{data[i]['text']}</p>
                     <hr/>
                     {this.getResponseValues(data[i])}
                     <br/>
+                    <hr/>
                 </Row>
+                <hr/>
+                </div>
             )
             ret.push(item);
         }
