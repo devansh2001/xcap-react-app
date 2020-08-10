@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import QuestionContainer from './components/QuestionContainer';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,27 @@ class App extends Component {
     this.setState({
       data: apiResponse
     })
+    this.forceUpdate();
     return apiResponse;
+  }
+
+  pprint = (data) => {
+    if (data === undefined) {
+      return <div>Empty</div>
+    }
+    let ret = []
+    // data = data['questions']
+    
+    data = data['questions']
+    if (data === undefined) {
+      return <div>Empty</div>
+    }
+    console.log(data)
+    for (let i = 0; i < data.length; i++) {
+      ret.push(<li>{data[i]['text']}</li>);
+    }
+    return ret;
+
   }
 
   createServerRequest = async() => {
@@ -81,7 +102,7 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-          <header className="App-header">
+          {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo"/>
             <p>
               Edit <code>src/App.js</code> and save to reload.
@@ -95,7 +116,10 @@ class App extends Component {
             >
               Learn React
             </a>
-          </header>
+          </header> */}
+          <ul>{this.pprint(this.state.data)}</ul>
+          
+          <QuestionContainer questions={this.state.data}/>
         </div>
     );
   }
