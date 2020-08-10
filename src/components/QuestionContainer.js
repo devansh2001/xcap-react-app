@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Question from './Question';
-import { Container, Row, FormControl, InputGroup } from 'react-bootstrap';
+import { Container, Row, Form, FormControl, InputGroup } from 'react-bootstrap';
+import CheckboxGroup from 'react-checkbox-group'
+
 
 class QuestionContainer extends Component {
     constructor(props) {
@@ -8,6 +10,11 @@ class QuestionContainer extends Component {
         this.state = {
             data: this.props.questions
         }
+    }
+
+    handleChange = (e) => {
+        console.log(e.target.name)
+        console.log(e.target.getAttribute('question_id'))
     }
 
     getResponseValues = (data) => {
@@ -21,13 +28,18 @@ class QuestionContainer extends Component {
             let responseValues = data['response_values'];
             let ui = [];
             for (let i = 0; i < responseValues.length; i++) {
+
                 let item = (
-                    <InputGroup className="mb-3">
+
+                    <InputGroup className="mb-3" onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} >
+                    
                         <InputGroup.Prepend>
-                            <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                            <InputGroup.Checkbox question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
                         </InputGroup.Prepend>
-                        <FormControl aria-label="Text input with checkbox" value={responseValues[i]} />
+                        <FormControl question_id={'question_id'} name={responseValues[i]} aria-label="Text input with checkbox" value={responseValues[i]} />
+                    
                     </InputGroup>
+                    
                 );
                 ui.push(item);
             }
