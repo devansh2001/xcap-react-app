@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: window.myKeySet
+      data: 'EMPTY'
     }
     
   }
@@ -28,7 +28,7 @@ class App extends Component {
     if (data === undefined) {
       return <div>Empty</div>
     }
-    let ret = []
+    let ret = [<li>AHAH</li>]
     // data = data['questions']
     
     data = data['questions']
@@ -101,7 +101,7 @@ class App extends Component {
 
   render() {
     return (
-        <div className="App">
+        <div className="outer">
           {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo"/>
             <p>
