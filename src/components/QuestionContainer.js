@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Question from './Question';
-import { Container, Row, Form, FormControl, InputGroup } from 'react-bootstrap';
+import { Container, Row, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
 class QuestionContainer extends Component {
@@ -10,6 +10,7 @@ class QuestionContainer extends Component {
             data: this.props.questions,
             responses: new Map()
         }
+        this.url = 'http://localhost:5000'
     }
 
     handleChange = (e) => {
@@ -50,6 +51,38 @@ class QuestionContainer extends Component {
         this.setState({
             responses: responses
         })
+    }
+
+    handleSubmit = async () => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        
+        let stateAsDict = await this.getStateAsDict();
+        await fetch(this.url + '/submit-survey', {
+            method: 'POST',
+            body: JSON.stringify(stateAsDict)
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+    }
+
+    getStateAsDict = () => {
+        let result = {}
+        let responses = this.state.responses;
+        responses.forEach((val, key, map) => {
+            console.log(key + " " + val);
+            if (val instanceof Set) {
+                console.log('Found set for ' + key);
+                let arr = Array.from(val);
+                result[key] = arr
+            } else {
+                result[key] = val
+            }
+        });
+        console.log('Result');
+        console.log(result);
+        return result;
     }
 
     getSpaces = (question_id) => {
@@ -152,6 +185,12 @@ class QuestionContainer extends Component {
             <div>
                 <Container>
                     {this.pprint(this.state.data)}
+                    <Row style={{justifyContent: 'center'}}>
+                        <div>
+                            <Button onClick={this.handleSubmit}> Submit </Button>
+                        </div>
+                    </Row>
+                    <br/>
                 </Container>
             </div>
         );
