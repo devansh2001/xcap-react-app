@@ -10,7 +10,7 @@ class QuestionContainer extends Component {
             data: this.props.questions,
             responses: new Map()
         }
-        this.url = 'http://localhost:5000'
+        this.url = 'https://xcap-react-app-stg.herokuapp.com'
     }
 
     handleChange = (e) => {
