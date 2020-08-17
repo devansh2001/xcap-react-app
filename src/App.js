@@ -58,7 +58,8 @@ class App extends Component {
       body: window.myKeySet,
     };
 
-    const url = 'https://xcap-backend-prd.herokuapp.com';
+    // const url = 'https://xcap-backend-prd.herokuapp.com';
+    const url = 'http://localhost:5000';
 
     await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
