@@ -123,7 +123,7 @@ class App extends Component {
           </header> */}
           {/* <ul>{this.pprint(this.state.data)}</ul> */}
           
-          <QuestionContainer questions={this.state.data} participant_id={participant_id} />
+          <QuestionContainer questions={this.state.data} />
         </div>
     );
   }
