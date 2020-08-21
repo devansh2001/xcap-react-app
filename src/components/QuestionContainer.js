@@ -11,8 +11,8 @@ class QuestionContainer extends Component {
             participant_id: this.props.participant_id,
             responses: new Map()
         }
-        this.url = 'https://xcap-react-app-stg.herokuapp.com'
-        // this.url = 'http://localhost:5000'
+        // this.url = 'https://xcap-react-app-stg.herokuapp.com'
+        this.url = 'http://localhost:5000'
     }
 
     handleChange = (e) => {
@@ -63,6 +63,7 @@ class QuestionContainer extends Component {
         let bodyData = {};
         bodyData['data'] = stateAsDict
         bodyData['participant_id'] = this.state.participant_id
+        console.log(bodyData)
         await fetch(this.url + '/submit-survey', {
             method: 'POST',
             body: JSON.stringify(bodyData)
