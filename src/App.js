@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       data: 'EMPTY',
-      participant_id: typeof(window.myKeySet) != 'undefined' ? window.myKeySet['PARTICIPANT_ID'] : 'default'
+      participant_id: 'EMPTY'
     }
     
   }
@@ -17,8 +17,15 @@ class App extends Component {
   }
 
   updateState = (apiResponse) => {
+    console.log("Input keyset")
+    console.log(JSON.stringify(window.myKeySet))
+    let keyset = JSON.parse(window.myKeySet)
+    console.log(typeof keyset);
+    console.log(JSON.stringify(keyset['PARTICIPANT_ID']))
+    
     this.setState({
-      data: apiResponse
+      data: apiResponse,
+      participant_id: JSON.stringify(keyset['PARTICIPANT_ID'])
     })
     this.forceUpdate();
     return apiResponse;
@@ -65,6 +72,7 @@ class App extends Component {
     .then(response => response.json())
     .then(result => apiResponse = result)
     .then(data => this.updateState(data))
+    .then(() => console.log("going", JSON.stringify(this.state)))
     .catch(error => console.log('error', error));
 
     await console.log(apiResponse);

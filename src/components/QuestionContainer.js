@@ -61,14 +61,14 @@ class QuestionContainer extends Component {
         
         let stateAsDict = await this.getStateAsDict();
         let bodyData = {};
-        bodyData['data'] = stateAsDict
-        bodyData['participant_id'] = this.state.participant_id
-        console.log(bodyData)
+        // bodyData['data'] = stateAsDict
+        // bodyData['participant_id'] = this.state.participant_id
+        console.log(stateAsDict)
         await fetch(this.url + '/submit-survey', {
             method: 'POST',
-            body: JSON.stringify(bodyData)
+            body: JSON.stringify(stateAsDict)
         })
-        .then(res => res.json())
+        .then(res => {console.log(res); res.json()})
         .then(data => console.log(data))
         .catch(error => console.log(error));
     }
@@ -88,7 +88,13 @@ class QuestionContainer extends Component {
         });
         console.log('Result');
         console.log(result);
-        return result;
+        let out = {};
+        out['data'] = result;
+        out['participant_id'] = this.state.participant_id;
+        console.log("OUT DATA");
+        console.log(this.state.participant_id);
+        console.log(JSON.stringify(out))
+        return out;
     }
 
     getSpaces = (question_id) => {
@@ -183,7 +189,7 @@ class QuestionContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ data: nextProps.questions });  
+        this.setState({ data: nextProps.questions, participant_id: nextProps.participant_id });  
     }
 
     render() {
