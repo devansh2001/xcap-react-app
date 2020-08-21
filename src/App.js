@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import QuestionContainer from './components/QuestionContainer';
 
@@ -16,9 +15,10 @@ class App extends Component {
     await this.createServerRequest()
   }
 
-  updateState = (apiResponse) => {
+  updateState = (apiResponse, participant_id) => {
     this.setState({
-      data: apiResponse
+      data: apiResponse,
+      participant_id: participant_id
     })
     this.forceUpdate();
     return apiResponse;
@@ -52,6 +52,9 @@ class App extends Component {
 
     // var raw = JSON.stringify({"body":{"test":["one","two"]}});
 
+    const participant_id = window.myKeySet['PARTICIPANT_ID']
+    window.myKeySet.delete('PARTICIPANT_ID');
+
     var requestOptions = {
       method: 'POST',
       // headers: myHeaders,
@@ -64,7 +67,7 @@ class App extends Component {
     await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
     .then(result => apiResponse = result)
-    .then(data => this.updateState(data))
+    .then(data => this.updateState(data, participant_id))
     .catch(error => console.log('error', error));
 
     await console.log(apiResponse);
@@ -120,7 +123,7 @@ class App extends Component {
           </header> */}
           {/* <ul>{this.pprint(this.state.data)}</ul> */}
           
-          <QuestionContainer questions={this.state.data}/>
+          <QuestionContainer questions={this.state.data} participant_id={} />
         </div>
     );
   }
