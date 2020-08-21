@@ -54,9 +54,9 @@ class App extends Component {
     // var raw = JSON.stringify({"body":{"test":["one","two"]}});
 
     const participant_id = typeof(window.myKeySet) != 'undefined' ? window.myKeySet['PARTICIPANT_ID'] : null;
-    if (typeof(window.myKeySet) != 'undefined') {
-      window.myKeySet.delete('PARTICIPANT_ID');
-    }
+    // if (typeof(window.myKeySet) != 'undefined') {
+    //   window.myKeySet.delete('PARTICIPANT_ID');
+    // }
     
 
     var requestOptions = {
@@ -65,8 +65,8 @@ class App extends Component {
       body: window.myKeySet,
     };
 
-    // const url = 'https://xcap-backend-stg.herokuapp.com';
-    const url = 'http://localhost:5000';
+    const url = 'https://xcap-backend-stg.herokuapp.com';
+    // const url = 'http://localhost:5000';
 
     await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
