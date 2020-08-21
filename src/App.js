@@ -54,9 +54,6 @@ class App extends Component {
     // var raw = JSON.stringify({"body":{"test":["one","two"]}});
 
     const participant_id = typeof(window.myKeySet) != 'undefined' ? window.myKeySet['PARTICIPANT_ID'] : null;
-    // if (typeof(window.myKeySet) != 'undefined') {
-    //   window.myKeySet.delete('PARTICIPANT_ID');
-    // }
     
 
     var requestOptions = {
