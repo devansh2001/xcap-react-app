@@ -6,7 +6,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: 'EMPTY'
+      data: 'EMPTY',
+      participant_id: ''
     }
     
   }
@@ -123,7 +124,7 @@ class App extends Component {
           </header> */}
           {/* <ul>{this.pprint(this.state.data)}</ul> */}
           
-          <QuestionContainer questions={this.state.data} />
+          <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id}/>
         </div>
     );
   }

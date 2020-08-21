@@ -8,6 +8,7 @@ class QuestionContainer extends Component {
         super(props);
         this.state = {
             data: this.props.questions,
+            participant_id: this.props.participant_id,
             responses: new Map()
         }
         this.url = 'https://xcap-react-app-stg.herokuapp.com'
@@ -59,9 +60,12 @@ class QuestionContainer extends Component {
         headers.append('Content-Type', 'application/json');
         
         let stateAsDict = await this.getStateAsDict();
+        let bodyData = {};
+        bodyData['data'] = stateAsDict
+        bodyData['participant_id'] = this.state.participant_id
         await fetch(this.url + '/submit-survey', {
             method: 'POST',
-            body: JSON.stringify(stateAsDict)
+            body: JSON.stringify(bodyData)
         })
         .then(res => res.json())
         .then(data => console.log(data))
