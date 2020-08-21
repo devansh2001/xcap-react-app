@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       data: 'EMPTY',
-      participant_id: ''
+      participant_id: typeof(window.myKeySet) != 'undefined' ? window.myKeySet['PARTICIPANT_ID'] : 'default'
     }
     
   }
@@ -16,10 +16,9 @@ class App extends Component {
     await this.createServerRequest()
   }
 
-  updateState = (apiResponse, participant_id) => {
+  updateState = (apiResponse) => {
     this.setState({
-      data: apiResponse,
-      participant_id: participant_id
+      data: apiResponse
     })
     this.forceUpdate();
     return apiResponse;
@@ -53,10 +52,6 @@ class App extends Component {
 
     // var raw = JSON.stringify({"body":{"test":["one","two"]}});
 
-    let participant_id = typeof(window.myKeySet) != 'undefined' ? window.myKeySet['PARTICIPANT_ID'] : null;
-    console.log(participant_id)
-    
-
     var requestOptions = {
       method: 'POST',
       // headers: myHeaders,
@@ -69,7 +64,7 @@ class App extends Component {
     await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
     .then(result => apiResponse = result)
-    .then(data => this.updateState(data, participant_id))
+    .then(data => this.updateState(data))
     .catch(error => console.log('error', error));
 
     await console.log(apiResponse);
