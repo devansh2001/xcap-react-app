@@ -58,6 +58,7 @@ class QuestionContainer extends Component {
     handleSubmit = async () => {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append("Access-Control-Allow-Origin", "*");
         
         let stateAsDict = await this.getStateAsDict();
         let bodyData = {};
@@ -66,11 +67,14 @@ class QuestionContainer extends Component {
         console.log(stateAsDict)
         await fetch(this.url + '/submit-survey', {
             method: 'POST',
+            headers: headers,
             body: JSON.stringify(stateAsDict)
         })
         .then(res => {console.log(res); res.json()})
         .then(data => console.log(data))
         .catch(error => console.log(error));
+
+        window.location.href = 'https://gtspuds.com';
     }
 
     getStateAsDict = () => {
@@ -90,7 +94,7 @@ class QuestionContainer extends Component {
         console.log(result);
         let out = {};
         out['data'] = result;
-        out['participant_id'] = this.state.participant_id;
+        out['participant_id'] = this.state.participant_id ? this.state.participant_id :'EMPTY' ;
         console.log("OUT DATA");
         console.log(this.state.participant_id);
         console.log(JSON.stringify(out))
@@ -123,7 +127,7 @@ class QuestionContainer extends Component {
                         <InputGroup.Prepend>
                             <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
                         </InputGroup.Prepend>
-                        <FormControl question_id={data['question_id']} name={responseValues[i]} aria-label="Text input with checkbox" value={responseValues[i]} />
+                        <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } />
                     </InputGroup>
                 );
                 ui.push(item);

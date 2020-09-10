@@ -18,8 +18,9 @@ class App extends Component {
 
   updateState = (apiResponse) => {
     console.log("Input keyset")
+    console.log(window.myKeySet)
     console.log(JSON.stringify(window.myKeySet))
-    let keyset = JSON.parse(window.myKeySet)
+    let keyset = JSON.parse(window.myKeySet ? window.myKeySet : '{}')
     console.log(typeof keyset);
     console.log(JSON.stringify(keyset['PARTICIPANT_ID']))
     
