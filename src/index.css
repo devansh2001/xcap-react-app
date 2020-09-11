@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.my-spinner {
+  margin: 25px;
+  justify-content: center;
+}
+
 .my-checkbox-value {
   text-align: center;
   align-items: center;

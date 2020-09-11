@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spinner, Container, Row } from 'react-bootstrap';
 import './App.css';
 import QuestionContainer from './components/QuestionContainer';
 
@@ -66,8 +67,8 @@ class App extends Component {
       body: window.myKeySet,
     };
 
-    const url = 'https://xcap-backend-stg.herokuapp.com';
-    // const url = 'http://localhost:5000';
+    // const url = 'https://xcap-backend-stg.herokuapp.com';
+    const url = 'http://localhost:5000';
 
     await fetch(url + '/get-questions', requestOptions)
     .then(response => response.json())
@@ -109,9 +110,26 @@ class App extends Component {
     //   // })
   }
 
+  renderSpinner = () => {
+    if (this.state.data === 'EMPTY') {
+      const item = (
+        <Container>
+            <Row className={'my-spinner'}>
+                <div>
+                  <Spinner animation="border" /> 
+                </div>
+            </Row>
+            <br/>
+          </Container>
+      )
+      return (item)
+    }
+  }
+
   render() {
     return (
         <div className="outer">
+          {this.renderSpinner()}
           {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo"/>
             <p>
