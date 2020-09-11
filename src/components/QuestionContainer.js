@@ -95,6 +95,7 @@ class QuestionContainer extends Component {
         let out = {};
         out['data'] = result;
         out['participant_id'] = this.state.participant_id ? this.state.participant_id :'EMPTY' ;
+        out['chosen_data'] = this.state.data['chosen_data']
         console.log("OUT DATA");
         console.log(this.state.participant_id);
         console.log(JSON.stringify(out))
