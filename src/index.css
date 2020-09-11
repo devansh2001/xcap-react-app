@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+.my-checkbox-value {
+  text-align: center;
+  align-items: center;
+  padding-left: 10px
+}
+
+.add-spacing {
+  margin-top: 10px;
+}
+
 .outer {
   text-align: left;
 }
@@ -19,3 +29,4 @@ code {
 .individual-question {
   margin: 20px;
 }
+

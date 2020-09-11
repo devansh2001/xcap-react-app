@@ -127,7 +127,12 @@ class QuestionContainer extends Component {
                         <InputGroup.Prepend>
                             <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
                         </InputGroup.Prepend>
-                        <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } />
+                        <div className={'my-checkbox-value'} >
+                            <div className={'add-spacing'}>
+                                <p question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
+                            </div>
+                        </div>
+                        {/* <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } /> */}
                     </InputGroup>
                 );
                 ui.push(item);
