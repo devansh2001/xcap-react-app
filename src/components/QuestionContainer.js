@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Question from './Question';
+import LikertComponent from './LikertComponent';
 import { Container, Row, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
@@ -142,19 +143,23 @@ class QuestionContainer extends Component {
         }
 
         if (responseType === 'LIKERT_SCALE') {
-            
+            const responses = [
+                { value : 1, text: 'Not at all Concerned'},
+                { value : 2, text: 'Slightly Concerned'},
+                { value : 3, text: 'Undecided'},
+                { value : 4, text: 'Somewhat Concerned'},
+                { value : 5, text: 'Very Concerned'}
+            ]
+            console.log(this.getSpaces(data['question_id']))
             let options = {
                 question: this.getSpaces(data['question_id']),
-                responses: [
-                    { value : 1, text: 'Not at all Concerned'},
-                    { value : 2, text: 'Slightly Concerned'},
-                    { value : 3, text: 'Undecided'},
-                    { value : 4, text: 'Somewhat Concerned'},
-                    { value : 5, text: 'Very Concerned'}
-                ],
+                responses: responses,
                 picked: (val) => this.handleLikertChange(val, data['question_id'])
             }
-            return (<div><Likert {...options} /></div>)
+            return (<div>
+                {/* <Likert {...options} /> */}
+                <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']} responses={responses} />
+                </div>)
         }
 
     }
