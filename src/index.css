@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+
+.likert-option {
+  margin: 10px;
+}
+.custom-likert {
+  justify-content: center;
+}
 .my-spinner {
   margin: 25px;
   justify-content: center;
