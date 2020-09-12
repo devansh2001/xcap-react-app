@@ -143,22 +143,9 @@ class QuestionContainer extends Component {
         }
 
         if (responseType === 'LIKERT_SCALE') {
-            const responses = [
-                { value : 1, text: 'Not at all Concerned'},
-                { value : 2, text: 'Slightly Concerned'},
-                { value : 3, text: 'Undecided'},
-                { value : 4, text: 'Somewhat Concerned'},
-                { value : 5, text: 'Very Concerned'}
-            ]
-            console.log(this.getSpaces(data['question_id']))
-            let options = {
-                question: this.getSpaces(data['question_id']),
-                responses: responses,
-                picked: (val) => this.handleLikertChange(val, data['question_id'])
-            }
             return (<div>
                 {/* <Likert {...options} /> */}
-                <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']} responses={responses} />
+                <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']}/>
                 </div>)
         }
 
