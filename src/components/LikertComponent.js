@@ -17,6 +17,7 @@ class LikertComponent extends Component {
             { value : 4, text: 'Somewhat Concerned'},
             { value : 5, text: 'Very Concerned'}
         ]
+        shuffle(this.responses);
     }
 
     // componentWillReceiveProps(nextProps) {
