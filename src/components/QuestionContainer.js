@@ -47,7 +47,7 @@ class QuestionContainer extends Component {
         });
     }
 
-    handleLikertChange = (value, question_id) => {
+    handleRadioChange = (value, question_id) => {
         console.log(value);
         console.log(question_id);
         let responses = this.state.responses;
@@ -100,6 +100,7 @@ class QuestionContainer extends Component {
         out['chosen_data'] = this.state.data['chosen_data']
         console.log("OUT DATA");
         console.log(this.state.participant_id);
+        console.log(out);
         console.log(JSON.stringify(out))
         return out;
     }
@@ -113,6 +114,10 @@ class QuestionContainer extends Component {
         }
         return ret;
     }
+
+    // getManikinResponse = () => {
+
+    // }
 
     getResponseValues = (data) => {
         if (data === undefined) {
@@ -146,7 +151,7 @@ class QuestionContainer extends Component {
         if (responseType === 'LIKERT_SCALE') {
             return (<div>
                     {/* <Likert {...options} /> */}
-                    <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']}/>
+                    <LikertComponent handleRadioChange={this.handleRadioChange} question_id={data['question_id']}/>
                 </div>
             )
         }
@@ -157,13 +162,13 @@ class QuestionContainer extends Component {
                     <br/>
                     <Container>
                         <Row>
-                            <Manikin option='arousal'/>
+                            <Manikin option='arousal' handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                         <Row>
-                            <Manikin option='dominance'/>
+                            <Manikin option='dominance'handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                         <Row>
-                            <Manikin option='valence'/>
+                            <Manikin option='valence'handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                     </Container>
                 </div>

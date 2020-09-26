@@ -4,7 +4,8 @@ class Manikin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            option : this.props.option
+            option : this.props.option,
+            question_id: this.props.question_id
         }
     }
 
@@ -13,6 +14,12 @@ class Manikin extends Component {
         let comp = [];
         for (let i = 1; i <= 5; i++) {
             let image = (<div>
+                <input
+                    type="radio" 
+                    onClick={this.handleChange} 
+                    name={this.state.question_id + '_' + option}
+                    value={i}
+                />
                 <img src={require('../resources/' + option + i + '.png')} />
                 <br/>
                 </div>
@@ -21,6 +28,11 @@ class Manikin extends Component {
         }
         
         return <div>{comp}</div>
+    }
+
+    handleChange = (event) => {
+        console.log(event.target.value)
+        this.props.handleRadioChange(event.target.value, this.state.question_id + '_' + this.state.option);
     }
 
     render() {

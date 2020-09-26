@@ -44,7 +44,7 @@ class LikertComponent extends Component {
 
     handleChange = (event) => {
         console.log(event.target.value)
-        this.props.handleLikertChange(event.target.value, this.state.question_id);
+        this.props.handleRadioChange(event.target.value, this.state.question_id);
     }
 
     render() {
