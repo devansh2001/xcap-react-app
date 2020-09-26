@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import LikertComponent from './LikertComponent';
+import Manikin from './Manikin';
 import { Container, Row, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
@@ -12,8 +13,8 @@ class QuestionContainer extends Component {
             participant_id: this.props.participant_id,
             responses: new Map()
         }
-        this.url = 'https://xcap-backend-stg.herokuapp.com'
-        // this.url = 'http://localhost:5000'
+        // this.url = 'https://xcap-backend-stg.herokuapp.com'
+        this.url = 'http://localhost:5000'
     }
 
     handleChange = (e) => {
@@ -144,9 +145,29 @@ class QuestionContainer extends Component {
 
         if (responseType === 'LIKERT_SCALE') {
             return (<div>
-                {/* <Likert {...options} /> */}
-                <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']}/>
-                </div>)
+                    {/* <Likert {...options} /> */}
+                    <LikertComponent handleLikertChange={this.handleLikertChange} question_id={data['question_id']}/>
+                </div>
+            )
+        }
+
+        if (responseType == 'MANIKIN') {
+            return (
+                <div>
+                    <br/>
+                    <Container>
+                        <Row>
+                            <Manikin option='arousal'/>
+                        </Row>
+                        <Row>
+                            <Manikin option='dominance'/>
+                        </Row>
+                        <Row>
+                            <Manikin option='valence'/>
+                        </Row>
+                    </Container>
+                </div>
+            )
         }
 
     }
