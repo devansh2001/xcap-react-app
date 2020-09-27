@@ -21,7 +21,7 @@ class Manikin extends Component {
                     name={this.state.question_id + '_' + option}
                     value={i}
                 />
-                <img src={require('../../public/resources/' + option + i + '.png')} />
+                <img src={require('../../public/resources/' + option.toLowerCase() + i + '.png')} />
                 <br/>
                 </div>
             );
@@ -42,6 +42,9 @@ class Manikin extends Component {
     render() {
         return (
             <div>
+                <div className='likert-option'>
+                    {this.state.option}
+                </div>
                 {this.getManikinImages()}
             </div>
         )
