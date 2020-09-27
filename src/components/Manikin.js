@@ -22,7 +22,7 @@ class Manikin extends Component {
                     name={this.state.question_id + '_' + option}
                     value={i}
                 />
-                <img src={require('../resources/' + option + i + '.png')} />
+                <img src={require('../../public/resources/' + option + i + '.png')} />
                 <br/>
                 </div>
             );
@@ -32,7 +32,9 @@ class Manikin extends Component {
 
         console.log(comp);
         // comp = <img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.educba.com%2Fuses-of-internet%2F&psig=AOvVaw3X-jeX8_8XkTJMASGwWPaj&ust=1601261061508000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjau7moiOwCFQAAAAAdAAAAABAJ' />
-        return <Image src="https://ssl.gstatic.com/images/branding/googleg/2x/googleg_standard_color_64dp.png" roundedCircle fluid />
+        // return <Image src="https://drive.google.com/file/d/1fOok5lMH7faDaF-uBiAjaGlSIJ5vHW--/view?usp=sharing" roundedCircle fluid />
+        // return <Image src="https://ssl.gstatic.com/images/branding/googleg/2x/googleg_standard_color_64dp.png" roundedCircle fluid />
+        return comp;
 
     }
 
