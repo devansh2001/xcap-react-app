@@ -14,6 +14,7 @@ class Manikin extends Component {
         let comp = [];
         for (let i = 1; i <= 5; i++) {
             let image = (<div>
+                Test
                 <input
                     type="radio" 
                     onClick={this.handleChange} 
