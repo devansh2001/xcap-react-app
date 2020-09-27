@@ -25,8 +25,11 @@ class Manikin extends Component {
                 <br/>
                 </div>
             );
+            
             comp.push(image);
         }
+
+        console.log(comp);
         
         return <div>{comp}</div>
     }
