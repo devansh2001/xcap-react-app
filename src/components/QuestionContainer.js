@@ -13,7 +13,8 @@ class QuestionContainer extends Component {
             participant_id: this.props.participant_id,
             responses: new Map()
         }
-        this.url = 'https://xcap-backend-stg.herokuapp.com'
+        this.url = 'https://xcap-backend-prd.herokuapp.com'
+        // this.url = 'https://xcap-backend-stg.herokuapp.com'
         // this.url = 'http://localhost:5000'
     }
 
