@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image } from 'react-bootstrap';
 
 class Manikin extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Manikin extends Component {
 
         console.log(comp);
         // comp = <img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.educba.com%2Fuses-of-internet%2F&psig=AOvVaw3X-jeX8_8XkTJMASGwWPaj&ust=1601261061508000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjau7moiOwCFQAAAAAdAAAAABAJ' />
-        return <img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"/>
+        return <Image src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" roundedCircle fluid />
 
     }
 
