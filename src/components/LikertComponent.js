@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { InputGroup, Container, Row } from 'react-bootstrap';
-const shuffle = require('shuffle-array');
+// const shuffle = require('shuffle-array');
 
 class LikertComponent extends Component {
     constructor(props) {
@@ -17,7 +17,14 @@ class LikertComponent extends Component {
             { value : 4, text: 'Somewhat Concerned'},
             { value : 5, text: 'Very Concerned'}
         ]
-        shuffle(this.responses);
+        if (Math.random() < 0.5) {
+            this.shuffle(this.responses);
+        }
+        
+    }
+
+    shuffle = (arr) => {
+        arr = arr.reverse();
     }
 
     // componentWillReceiveProps(nextProps) {

@@ -115,10 +115,6 @@ class QuestionContainer extends Component {
         return ret;
     }
 
-    // getManikinResponse = () => {
-
-    // }
-
     getResponseValues = (data) => {
         if (data === undefined) {
             return;
@@ -167,7 +163,7 @@ class QuestionContainer extends Component {
                         </Row>
                         <Row className='custom-likert'>
                             <br/>
-                            <Manikin option='Dominance'handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
+                            <Manikin option='Dominance' handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                         <Row className='custom-likert'>
                             <br/>
