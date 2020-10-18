@@ -42,9 +42,10 @@ class Manikin extends Component {
     render() {
         return (
             <div>
-                <div className='likert-option'>
+                {/* <div className='likert-option'>
                     {this.state.option}
-                </div>
+                </div> */}
+                <hr/>
                 {this.getManikinImages()}
             </div>
         )

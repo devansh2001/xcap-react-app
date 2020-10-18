@@ -160,15 +160,15 @@ class QuestionContainer extends Component {
                     <Container>
                         <Row className='custom-likert'>
                             <br/>
+                            <Manikin option='Valence'handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
+                        </Row>
+                        <Row className='custom-likert'>
+                            <br/>
                             <Manikin option='Arousal' handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                         <Row className='custom-likert'>
                             <br/>
                             <Manikin option='Dominance' handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
-                        </Row>
-                        <Row className='custom-likert'>
-                            <br/>
-                            <Manikin option='Valence'handleRadioChange={this.handleRadioChange} question_id={data['question_id']} />
                         </Row>
                     </Container>
                 </div>
