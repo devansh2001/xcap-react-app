@@ -180,13 +180,13 @@ class QuestionContainer extends Component {
     pprint = (data) => {
         if (data === undefined) {
             // Do NOT change the innerHTML for this div to avoid breaking changes
-            return <div>Empty</div>
+            return <div className={'empty-text'}>Empty</div>
         }
         data = data['questions']
         let ret = []
         if (data === undefined) {
             // Do NOT change the innerHTML for this div to avoid breaking changes
-            return <div>Empty</div>
+            return <div className={'empty-text'}>Empty</div>
         }
         console.log(this.state)
         for (let i = 0; i < data.length; i++) {

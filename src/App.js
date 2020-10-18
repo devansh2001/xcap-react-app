@@ -35,14 +35,14 @@ class App extends Component {
 
   pprint = (data) => {
     if (data === undefined) {
-      return <div>Empty</div>
+      return <div className={'empty-text'}>Empty</div>
     }
     let ret = [<li>AHAH</li>]
     // data = data['questions']
     
     data = data['questions']
     if (data === undefined) {
-      return <div>Empty</div>
+      return <div className={'empty-text'}>Empty</div>
     }
     console.log(data)
     for (let i = 0; i < data.length; i++) {
