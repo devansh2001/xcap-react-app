@@ -36,13 +36,17 @@ class LikertComponent extends Component {
         for (let i = 0; i < this.responses.length; i++) {
             console.log(this.state.question_id)
             const item = (<div>
-                <input
-                    className={'likert-option'}
-                    type="radio" 
-                    onClick={this.handleChange} 
-                    name={this.state.question_id}
-                    value={this.responses[i]['value']}
-                /> {this.responses[i]['text']} </div>);
+                    <label>
+                        <input
+                            className={'likert-option'}
+                            type="radio" 
+                            onClick={this.handleChange} 
+                            name={this.state.question_id}
+                            value={this.responses[i]['value']}
+                        /> {this.responses[i]['text']}
+                    </label>
+                </div>
+                );
             items.push(item);
         }
         console.log(items);

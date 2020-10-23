@@ -15,13 +15,16 @@ class Manikin extends Component {
         let comp = [];
         for (let i = 1; i <= 5; i++) {
             let image = (<div>
+                <label>
                 <input
                     type="radio" 
                     onClick={this.handleChange} 
                     name={this.state.question_id + '_' + option}
                     value={i}
                 />
+                
                 <img src={require('../../public/resources/' + option.toLowerCase() + i + '.png')} />
+                </label>
                 <br/>
                 </div>
             );
