@@ -128,15 +128,19 @@ class QuestionContainer extends Component {
             let ui = [];
             for (let i = 0; i < responseValues.length; i++) {
                 let item = (
+                    
                     <InputGroup className="mb-3" question_id={data['question_id']} name={responseValues[i]} >
-                        <InputGroup.Prepend>
-                            <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
-                        </InputGroup.Prepend>
-                        <div className={'my-checkbox-value'} >
-                            <div className={'add-spacing'}>
-                                <p question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
+                        <label>
+                            <InputGroup.Prepend>
+                                <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
+                            </InputGroup.Prepend>
+                            
+                            <div className={'my-checkbox-value'} onClick={this.handleChange} >
+                                <div className={'add-spacing'}>
+                                    <p onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
+                                </div>
                             </div>
-                        </div>
+                        </label>
                         {/* <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } /> */}
                     </InputGroup>
                 );
