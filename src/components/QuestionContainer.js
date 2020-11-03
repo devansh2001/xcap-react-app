@@ -11,14 +11,20 @@ class QuestionContainer extends Component {
         this.state = {
             data: this.props.questions,
             participant_id: this.props.participant_id,
-            responses: new Map()
+            responses: new Map(),
+            otherFields: {
+                question_2_other: '',
+                question_4_other: '',
+                question_5_other: '',
+                question_6_other: ''
+            }
         }
         this.url = 'https://xcap-backend-prd.herokuapp.com'
         // this.url = 'https://xcap-backend-stg.herokuapp.com'
         // this.url = 'http://localhost:5000'
     }
 
-    handleChange = (e) => {
+    handleChange = async (e) => {
         console.log(e.target.name)
         const option = e.target.name;
         console.log(e.target.getAttribute('question_id'))
@@ -27,19 +33,38 @@ class QuestionContainer extends Component {
             return;
         }
         let responses = this.state.responses;
+
+        if (question_id.includes("other")) {
+            console.log("hello");
+            // newResponseSet.add(e.target.value);
+            // document.getElementById(question_id).innerHTML = '';
+            let otherFields = this.state.otherFields;
+            otherFields[question_id] = '';
+            await this.setState({
+                otherFields: otherFields
+            })
+        }
+
         if (responses.has(question_id)) {
             let responsesToCurrentQuestion = responses.get(question_id)
 
-            if (responsesToCurrentQuestion.has(option)) {
-                responsesToCurrentQuestion.delete(option);
+            if (question_id.includes("other")) {
+                responses.delete(question_id);
             } else {
-                responsesToCurrentQuestion.add(e.target.name);
+                if (responsesToCurrentQuestion.has(option)) {
+                    responsesToCurrentQuestion.delete(option);
+                } else {
+                    responsesToCurrentQuestion.add(e.target.name);
+                }
+                responses.set(question_id, responsesToCurrentQuestion);
             }
-            
-            responses.set(question_id, responsesToCurrentQuestion);
         } else {
             let newResponseSet = new Set();
-            newResponseSet.add(e.target.name);
+            
+            if (!question_id.includes("other")) {
+                newResponseSet.add(e.target.name);
+            }
+            
             responses.set(question_id, newResponseSet);
         }
 
@@ -116,6 +141,22 @@ class QuestionContainer extends Component {
         return ret;
     }
 
+    handleOtherChange = (e) => {
+        const question_id = e.currentTarget.name;
+        const val = e.target.value;
+
+        let responses = this.state.responses;
+        let newResponseSet = new Set();
+        newResponseSet.add(val);
+        responses.set(question_id, newResponseSet);
+        let otherFields = this.state.otherFields;
+        otherFields[question_id] = val;
+        this.setState({
+            responses: responses,
+            otherFields: otherFields
+        })
+    }
+
     getResponseValues = (data) => {
         if (data === undefined) {
             return;
@@ -146,6 +187,34 @@ class QuestionContainer extends Component {
                 );
                 ui.push(item);
             }
+
+            const otherItem = (
+                <InputGroup className="mb-3" question_id={data['question_id'] + "_other"} name={'other'} >
+                    <label>
+                        <InputGroup.Prepend>
+                            <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} aria-label="Checkbox for following text input" />
+                        </InputGroup.Prepend>
+                        
+                        <div >
+                            <div >
+                                <p onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} value={''} id={data['question_id'] + "_other"} />
+                            </div>
+
+                            <FormControl
+                                placeholder="Other"
+                                aria-label="Amount (to the nearest dollar)"
+                                question_id={data['question_id'] + "_other"}
+                                name={data['question_id'] + "_other"}
+                                onChange={this.handleOtherChange}
+                                value={this.state.otherFields[data['question_id'] + "_other"]}
+                                disabled={!this.state.responses.has(data['question_id'] + "_other")}
+                            />
+                        </div>
+                    </label>
+                    {/* <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } /> */}
+                </InputGroup>
+            );
+            ui.push(otherItem);
             return ui;
         }
 
