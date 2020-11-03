@@ -27,11 +27,11 @@ code {
 .my-checkbox-value {
   text-align: center;
   align-items: center;
-  padding-left: 10px
+  padding-left: 20px
 }
 
 .add-spacing {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .outer {

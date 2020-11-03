@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Question from './Question';
 import LikertComponent from './LikertComponent';
 import Manikin from './Manikin';
-import { Container, Row, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
 class QuestionContainer extends Component {
@@ -172,15 +172,21 @@ class QuestionContainer extends Component {
                     
                     <InputGroup className="mb-3" question_id={data['question_id']} name={responseValues[i]} >
                         <label>
-                            <InputGroup.Prepend>
-                                <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} aria-label="Checkbox for following text input" />
-                            </InputGroup.Prepend>
-                            
-                            <div className={'my-checkbox-value'} onClick={this.handleChange} >
-                                <div className={'add-spacing'}>
-                                    <p onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
-                                </div>
-                            </div>
+                            <Container>
+                                <Row>
+                                    
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} />
+                                    </InputGroup.Prepend>
+                                
+                                    <div className={'my-checkbox-value'} onClick={this.handleChange} >
+                                        <div className={'add-spacing'}>
+                                            <p onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
+                                        </div>
+                                        </div>
+                                    
+                                </Row>
+                            </Container>
                         </label>
                         {/* <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } /> */}
                     </InputGroup>
