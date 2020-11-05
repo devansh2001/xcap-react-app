@@ -4,6 +4,7 @@ import LikertComponent from './LikertComponent';
 import Manikin from './Manikin';
 import { Container, Row, Spinner, Col, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
+import { browserHistory } from 'react-router';
 
 class QuestionContainer extends Component {
     constructor(props) {
@@ -118,7 +119,8 @@ class QuestionContainer extends Component {
         .then(data => console.log(data))
         .catch(error => console.log(error));
 
-        window.location.href = 'https://gtspuds.com';
+        // window.location.href = 'https://gtspuds.com';
+        browserHistory.push('/thank-you');
     }
 
     getStateAsDict = () => {
