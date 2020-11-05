@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Question from './Question';
 import LikertComponent from './LikertComponent';
 import Manikin from './Manikin';
-import { Container, Row, Col, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Container, Row, Spinner, Col, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 
 class QuestionContainer extends Component {
@@ -23,6 +23,22 @@ class QuestionContainer extends Component {
         // this.url = 'https://xcap-backend-stg.herokuapp.com'
         // this.url = 'http://localhost:5000'
     }
+
+    renderSpinner = () => {
+        if (this.state.data === 'EMPTY') {
+          const item = (
+            <Container>
+                <Row className={'my-spinner'}>
+                    <div>
+                      <Spinner animation="border" /> 
+                    </div>
+                </Row>
+                <br/>
+              </Container>
+          )
+          return (item)
+        }
+      }
 
     handleChange = async (e) => {
         console.log(e.target.name)
@@ -304,6 +320,7 @@ class QuestionContainer extends Component {
     render() {
         return (
             <div>
+                {this.renderSpinner()}
                 <Container>
                     {this.pprint(this.state.data)}
                     <Row style={{justifyContent: 'center'}}>

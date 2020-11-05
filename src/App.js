@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Spinner, Container, Row } from 'react-bootstrap';
 import './App.css';
 import QuestionContainer from './components/QuestionContainer';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import ThankYou from './components/ThankYou';
 
 class App extends Component {
   constructor(props) {
@@ -111,44 +113,17 @@ class App extends Component {
     //   // })
   }
 
-  renderSpinner = () => {
-    if (this.state.data === 'EMPTY') {
-      const item = (
-        <Container>
-            <Row className={'my-spinner'}>
-                <div>
-                  <Spinner animation="border" /> 
-                </div>
-            </Row>
-            <br/>
-          </Container>
-      )
-      return (item)
-    }
-  }
 
   render() {
     return (
         <div className="outer">
-          {this.renderSpinner()}
-          {/* <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-              {console.log(this.state.data)}
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header> */}
-          {/* <ul>{this.pprint(this.state.data)}</ul> */}
-          
-          <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id}/>
+          <Router history={browserHistory}>
+            <Route path='/' component={() => {
+              return <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id}/>
+              }
+            } />
+            <Route path='/thank-you' component={() => <ThankYou/>}/>
+          </Router>
         </div>
     );
   }
