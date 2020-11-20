@@ -192,16 +192,22 @@ class QuestionContainer extends Component {
                         <label>
                             <Container>
                                 <Row>
-                                    
-                                    <InputGroup.Prepend>
-                                        <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} />
-                                    </InputGroup.Prepend>
-                                
-                                    <div className={'my-checkbox-value'} onClick={this.handleChange} >
-                                        <div className={'add-spacing'}>
-                                            <p onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
-                                        </div>
-                                        </div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} />
+                                                </InputGroup.Prepend>
+                                            </td>
+                                            <td>
+                                                <div className={'my-checkbox-value'} onClick={this.handleChange} >
+                                                    <div className={'add-spacing'}>
+                                                        <p className={'checkbox-text'} onClick={this.handleChange} question_id={data['question_id']} name={responseValues[i]} value={responseValues[i] }> {responseValues[i]} </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                     
                                 </Row>
                             </Container>
@@ -215,25 +221,30 @@ class QuestionContainer extends Component {
             const otherItem = (
                 <InputGroup className="mb-3" question_id={data['question_id'] + "_other"} name={'other'} >
                     <label>
-                        <InputGroup.Prepend>
-                            <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} aria-label="Checkbox for following text input" />
-                        </InputGroup.Prepend>
-                        
-                        <div >
-                            <div >
-                                <p onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} value={''} id={data['question_id'] + "_other"} />
-                            </div>
+                        <Container>
+                            <Row>
+                                <InputGroup.Prepend className={'other-box'}>
+                                    <InputGroup.Checkbox onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} aria-label="Checkbox for following text input" />
+                                </InputGroup.Prepend>
+                            
+                                <div>
+                                    <div>
+                                        <p onClick={this.handleChange} question_id={data['question_id'] + "_other"} name={'other'} value={''} id={data['question_id'] + "_other"} />
+                                    </div>
 
-                            <FormControl
-                                placeholder="Other"
-                                aria-label="Amount (to the nearest dollar)"
-                                question_id={data['question_id'] + "_other"}
-                                name={data['question_id'] + "_other"}
-                                onChange={this.handleOtherChange}
-                                value={this.state.otherFields[data['question_id'] + "_other"]}
-                                disabled={!this.state.responses.has(data['question_id'] + "_other")}
-                            />
-                        </div>
+                                    <FormControl
+                                        className={'my-checkbox-value'}
+                                        placeholder="Other"
+                                        aria-label="Amount (to the nearest dollar)"
+                                        question_id={data['question_id'] + "_other"}
+                                        name={data['question_id'] + "_other"}
+                                        onChange={this.handleOtherChange}
+                                        value={this.state.otherFields[data['question_id'] + "_other"]}
+                                        disabled={!this.state.responses.has(data['question_id'] + "_other")}
+                                    />
+                                </div>
+                            </Row>
+                        </Container>
                     </label>
                     {/* <Form.Control readOnly question_id={data['question_id']} name={responseValues[i]} type='text' value={responseValues[i] } /> */}
                 </InputGroup>

@@ -27,7 +27,8 @@ code {
 .my-checkbox-value {
   text-align: center;
   align-items: center;
-  padding-left: 20px
+  padding-left: 10px;
+  text-align: left;
 }
 
 .add-spacing {
@@ -44,4 +45,12 @@ code {
 
 .empty-text {
   color: white;
+}
+
+.checkbox-text {
+  padding-top: 10px;
+}
+
+.other-box {
+  padding-right: 10px;
 }
