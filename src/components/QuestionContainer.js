@@ -18,7 +18,8 @@ class QuestionContainer extends Component {
                 question_4_other: '',
                 question_5_other: '',
                 question_6_other: ''
-            }
+            },
+            shouldDisableSubmit: true
         }
         this.url = 'https://xcap-backend-prd.herokuapp.com'
         // this.url = 'https://xcap-backend-stg.herokuapp.com'
@@ -39,7 +40,45 @@ class QuestionContainer extends Component {
           )
           return (item)
         }
-      }
+    }
+
+    isFormComplete = () => {
+        const userResponses = this.state.responses;
+        let isCompleted = true;
+        const state = this.getStateAsDict();
+        console.log("IS FORM COMPLETE")
+        console.log(state['data']);
+        const data = state['data'];
+        console.log(data['question_1']);
+
+
+        // check likerts - Q1, Q3, Q7 Valence, Q7 Arousal, Q7 Dominance
+        isCompleted = isCompleted && (data['question_1'] !== undefined);
+        console.log("1 - Q1 " + isCompleted);
+        isCompleted = isCompleted && (data['question_3'] !== undefined);
+        console.log("2 - Q3 " + isCompleted);
+        isCompleted = isCompleted && (data['question_7_Valence'] !== undefined);
+        console.log("3 - Q7 V " + isCompleted);
+        isCompleted = isCompleted && (data['question_7_Arousal'] !== undefined);
+        console.log("4 - Q7 A " + isCompleted);
+        isCompleted = isCompleted && (data['question_7_Dominance'] !== undefined);
+        console.log("5 - Q7 D " + isCompleted);
+
+        // check multi-select with other option - Q2, Q4, Q5, Q6
+        isCompleted = isCompleted && ((data['question_2_other'] !== undefined) || (data['question_2'] !== undefined && data['question_2'].length !== 0));
+        console.log("6 - Q2 " + isCompleted);
+        isCompleted = isCompleted && ((data['question_4_other'] !== undefined) || (data['question_4'] !== undefined && data['question_4'].length !== 0));
+        console.log("7 - Q4 " + isCompleted);
+        isCompleted = isCompleted && ((data['question_5_other'] !== undefined) || (data['question_5'] !== undefined && data['question_5'].length !== 0));
+        console.log("8 - Q5 " + isCompleted);
+        isCompleted = isCompleted && ((data['question_6_other'] !== undefined) || (data['question_6'] !== undefined && data['question_6'].length !== 0));
+        console.log("2 - Q6 " + isCompleted);
+
+        const shouldDisableSubmit = !isCompleted;
+        this.setState({
+            shouldDisableSubmit: shouldDisableSubmit
+        })
+    }
 
     handleChange = async (e) => {
         console.log(e.target.name)
@@ -88,6 +127,7 @@ class QuestionContainer extends Component {
         this.setState({
             responses: responses
         });
+        this.isFormComplete();
     }
 
     handleRadioChange = (value, question_id) => {
@@ -98,6 +138,7 @@ class QuestionContainer extends Component {
         this.setState({
             responses: responses
         })
+        this.isFormComplete();
     }
 
     handleSubmit = async () => {
@@ -120,7 +161,7 @@ class QuestionContainer extends Component {
         .catch(error => console.log(error));
 
         // window.location.href = 'https://gtspuds.com';
-        browserHistory.push('/thank-you');
+        // browserHistory.push('/thank-you');
     }
 
     getStateAsDict = () => {
@@ -173,6 +214,8 @@ class QuestionContainer extends Component {
             responses: responses,
             otherFields: otherFields
         })
+
+        this.isFormComplete();
     }
 
     getResponseValues = (data) => {
@@ -338,7 +381,7 @@ class QuestionContainer extends Component {
                     {this.pprint(this.state.data)}
                     <Row style={{justifyContent: 'center'}}>
                         <div>
-                            <Button onClick={this.handleSubmit}> Submit </Button>
+                            <Button disabled={this.state.shouldDisableSubmit} onClick={this.handleSubmit}> Submit </Button>
                         </div>
                     </Row>
                     <br/>
