@@ -162,7 +162,7 @@ class QuestionContainer extends Component {
         .catch(error => console.log(error));
 
         // window.location.href = 'https://gtspuds.com';
-        // browserHistory.push('/thank-you');
+        browserHistory.push('/thank-you');
     }
 
     getStateAsDict = () => {
