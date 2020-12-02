@@ -21,7 +21,8 @@ class QuestionContainer extends Component {
             },
             shouldDisableSubmit: true
         }
-        this.url = 'https://xcap-backend-prd.herokuapp.com'
+        // this.url = 'https://xcap-backend-prd.herokuapp.com'
+        this.url = 'https://xcapteam-backend-prd.herokuapp.com/';
         // this.url = 'https://xcap-backend-stg.herokuapp.com'
         // this.url = 'http://localhost:5000'
     }
