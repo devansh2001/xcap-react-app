@@ -54,3 +54,7 @@ code {
 .other-box {
   padding-right: 10px;
 }
+
+.manikin-divider {
+  border-top: 2px solid black;
+}

@@ -48,7 +48,7 @@ class Manikin extends Component {
                 {/* <div className='likert-option'>
                     {this.state.option}
                 </div> */}
-                <hr/>
+                <hr className={'manikin-divider'}/>
                 {this.getManikinImages()}
             </div>
         )
