@@ -379,6 +379,11 @@ class QuestionContainer extends Component {
             <div>
                 {this.renderSpinner()}
                 <Container>
+                    <Row style={{justifyContent: 'center', margin: '20px'}}>
+                        <div>
+                            <Button onClick={this.props.refresh}> Refresh </Button>
+                        </div>
+                    </Row>
                     {this.pprint(this.state.data)}
                     <Row style={{justifyContent: 'center'}}>
                         <div>

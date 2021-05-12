@@ -19,6 +19,10 @@ class App extends Component {
     await this.createServerRequest()
   }
 
+  async refresh() {
+    await this.createServerRequest()
+  }
+
   updateState = (apiResponse) => {
     console.log("Input keyset")
     console.log(window.myKeySet)
@@ -120,7 +124,7 @@ class App extends Component {
         <div className="outer">
           <Router history={browserHistory}>
             <Route path='/' component={() => {
-              return <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id}/>
+              return <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id} refresh={this.refresh}/>
               }
             } />
             <Route path='/thank-you' component={() => <ThankYou/>}/>
