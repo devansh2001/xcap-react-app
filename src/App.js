@@ -20,6 +20,7 @@ class App extends Component {
   }
 
   async refresh() {
+    console.log("refreshing...")
     await this.createServerRequest()
   }
 
@@ -124,7 +125,7 @@ class App extends Component {
         <div className="outer">
           <Router history={browserHistory}>
             <Route path='/' component={() => {
-              return <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id} refresh={this.refresh}/>
+              return <QuestionContainer questions={this.state.data} participant_id={this.state.participant_id} refresh={this.createServerRequest}/>
               }
             } />
             <Route path='/thank-you' component={() => <ThankYou/>}/>
