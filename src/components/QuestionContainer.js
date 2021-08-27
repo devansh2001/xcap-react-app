@@ -21,8 +21,9 @@ class QuestionContainer extends Component {
                 question_6_other: ''
             },
             shouldDisableSubmit: true,
-            errorBanner: false
-        }
+            errorBanner: false,
+        };
+        this.incompleteQuestions = [];
         // this.url = 'https://xcap-backend-prd.herokuapp.com'
         this.url = 'https://xcapteam-backend-prd.herokuapp.com/';
         // this.url = 'https://xcap-backend-stg.herokuapp.com'
@@ -56,25 +57,68 @@ class QuestionContainer extends Component {
 
 
         // check likerts - Q1, Q3, Q7 Valence, Q7 Arousal, Q7 Dominance
+        let isCurrentQuestionCompleted = (data['question_1'] !== undefined);
         isCompleted = isCompleted && (data['question_1'] !== undefined);
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(1);
+        }
         console.log("1 - Q1 " + isCompleted);
+        
+        isCurrentQuestionCompleted = (data['question_3'] !== undefined);
         isCompleted = isCompleted && (data['question_3'] !== undefined);
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(3);
+        }
         console.log("2 - Q3 " + isCompleted);
+
+        isCurrentQuestionCompleted = (data['question_7_Valence'] !== undefined);
         isCompleted = isCompleted && (data['question_7_Valence'] !== undefined);
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(7);
+        }
         console.log("3 - Q7 V " + isCompleted);
+
+        isCurrentQuestionCompleted = (data['question_7_Arousal'] !== undefined);
         isCompleted = isCompleted && (data['question_7_Arousal'] !== undefined);
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(7);
+        }
         console.log("4 - Q7 A " + isCompleted);
+
+        isCurrentQuestionCompleted = (data['question_7_Dominance'] !== undefined);
         isCompleted = isCompleted && (data['question_7_Dominance'] !== undefined);
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(7);
+        }
         console.log("5 - Q7 D " + isCompleted);
 
         // check multi-select with other option - Q2, Q4, Q5, Q6
+        isCurrentQuestionCompleted = ((data['question_2_other'] !== undefined) || (data['question_2'] !== undefined && data['question_2'].length !== 0));
         isCompleted = isCompleted && ((data['question_2_other'] !== undefined) || (data['question_2'] !== undefined && data['question_2'].length !== 0));
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(2);
+        }
         console.log("6 - Q2 " + isCompleted);
+
+        isCurrentQuestionCompleted = ((data['question_4_other'] !== undefined) || (data['question_4'] !== undefined && data['question_4'].length !== 0));
         isCompleted = isCompleted && ((data['question_4_other'] !== undefined) || (data['question_4'] !== undefined && data['question_4'].length !== 0));
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(4);
+        }
         console.log("7 - Q4 " + isCompleted);
+
+        isCurrentQuestionCompleted = ((data['question_5_other'] !== undefined) || (data['question_5'] !== undefined && data['question_5'].length !== 0));
         isCompleted = isCompleted && ((data['question_5_other'] !== undefined) || (data['question_5'] !== undefined && data['question_5'].length !== 0));
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(5);
+        }
         console.log("8 - Q5 " + isCompleted);
+
+        isCurrentQuestionCompleted = ((data['question_6_other'] !== undefined) || (data['question_6'] !== undefined && data['question_6'].length !== 0));
         isCompleted = isCompleted && ((data['question_6_other'] !== undefined) || (data['question_6'] !== undefined && data['question_6'].length !== 0));
+        if (!isCurrentQuestionCompleted) {
+            this.incompleteQuestions.push(6);
+        }
         console.log("2 - Q6 " + isCompleted);
 
         const shouldDisableSubmit = !isCompleted;
@@ -84,6 +128,7 @@ class QuestionContainer extends Component {
     }
 
     handleChange = async (e) => {
+        this.incompleteQuestions = []
         console.log(e.target.name)
         const option = e.target.name;
         console.log(e.target.getAttribute('question_id'))
@@ -134,6 +179,7 @@ class QuestionContainer extends Component {
     }
 
     handleRadioChange = (value, question_id) => {
+        this.incompleteQuestions = []
         console.log(value);
         console.log(question_id);
         let responses = this.state.responses;
@@ -145,6 +191,7 @@ class QuestionContainer extends Component {
     }
 
     handleSubmit = async () => {
+        this.isFormComplete();
         const formCompleted = !this.state.shouldDisableSubmit;
         if (!formCompleted) {
             this.setState({
@@ -351,10 +398,17 @@ class QuestionContainer extends Component {
         }
         console.log(this.state)
         for (let i = 0; i < data.length; i++) {
+            let questionColor = 'black';
+            for (let k = 0; k < this.incompleteQuestions.length; k++) {
+                if (this.incompleteQuestions[k] === i + 1) {
+                    questionColor = 'red';
+                }
+            }
+            
             let item = (
                 <div className={'individual-question'}>
                     <Row>
-                        <p>{data[i]['text']}</p>
+                        <p style={{color: questionColor}}>{data[i]['text']}</p>
                         <hr/>
                         {this.getResponseValues(data[i])}
                         <br/>
