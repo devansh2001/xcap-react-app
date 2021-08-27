@@ -5,6 +5,7 @@ import Manikin from './Manikin';
 import { Container, Row, Spinner, Col, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import Likert from 'react-likert-scale';
 import { browserHistory } from 'react-router';
+import SubmitError from './SubmitError';
 
 class QuestionContainer extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class QuestionContainer extends Component {
                 question_5_other: '',
                 question_6_other: ''
             },
-            shouldDisableSubmit: true
+            shouldDisableSubmit: true,
+            errorBanner: false
         }
         // this.url = 'https://xcap-backend-prd.herokuapp.com'
         this.url = 'https://xcapteam-backend-prd.herokuapp.com/';
@@ -143,6 +145,13 @@ class QuestionContainer extends Component {
     }
 
     handleSubmit = async () => {
+        const formCompleted = !this.state.shouldDisableSubmit;
+        if (!formCompleted) {
+            this.setState({
+                errorBanner: true
+            });
+            return;
+        }
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append("Access-Control-Allow-Origin", "*");
@@ -387,7 +396,12 @@ class QuestionContainer extends Component {
                     {this.pprint(this.state.data)}
                     <Row style={{justifyContent: 'center'}}>
                         <div>
-                            <Button disabled={this.state.shouldDisableSubmit} onClick={this.handleSubmit}> Submit </Button>
+                            <Button onClick={this.handleSubmit}> Submit </Button>
+                        </div>
+                    </Row>
+                    <Row style={{justifyContent: 'center', margin: '10px'}}>
+                        <div>
+                            <SubmitError isVisible={this.state.errorBanner}></SubmitError>
                         </div>
                     </Row>
                     <br/>
