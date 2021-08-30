@@ -13,7 +13,17 @@ class QuestionContainer extends Component {
         this.state = {
             data: this.props.questions,
             participant_id: this.props.participant_id,
+            // q1: '',
+            // q2: '',
+            // q3: '',
+            // q4: '',
+            // q5: '',
+            // q6: '',
+            // q7Valence: '',
+            // q7Dominance: '',
+            // q7Arousal: '',
             responses: new Map(),
+            isSubmitPressed: false,
             otherFields: {
                 question_2_other: '',
                 question_4_other: '',
@@ -21,7 +31,7 @@ class QuestionContainer extends Component {
                 question_6_other: ''
             },
             shouldDisableSubmit: true,
-            errorBanner: false,
+            errorBanner: false
         };
         this.incompleteQuestions = [];
         // this.url = 'https://xcap-backend-prd.herokuapp.com'
@@ -175,10 +185,17 @@ class QuestionContainer extends Component {
         this.setState({
             responses: responses
         });
-        this.isFormComplete();
+        if (this.state.isSubmitPressed) {
+            await this.isFormComplete();
+        }
+        if (!this.state.shouldDisableSubmit) {
+            this.setState({
+                errorBanner: false
+            })
+        }
     }
 
-    handleRadioChange = (value, question_id) => {
+    handleRadioChange = async (value, question_id) => {
         this.incompleteQuestions = []
         console.log(value);
         console.log(question_id);
@@ -187,10 +204,20 @@ class QuestionContainer extends Component {
         this.setState({
             responses: responses
         })
-        this.isFormComplete();
+        if (this.state.isSubmitPressed) {
+            await this.isFormComplete();
+        }
+        if (!this.state.shouldDisableSubmit) {
+            this.setState({
+                errorBanner: false
+            })
+        }
     }
 
     handleSubmit = async () => {
+        this.setState({
+            isSubmitPressed: true
+        })
         this.isFormComplete();
         const formCompleted = !this.state.shouldDisableSubmit;
         if (!formCompleted) {
