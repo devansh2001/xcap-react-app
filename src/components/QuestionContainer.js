@@ -56,7 +56,7 @@ class QuestionContainer extends Component {
         }
     }
 
-    isFormComplete = () => {
+    isFormComplete = async () => {
         const userResponses = this.state.responses;
         let isCompleted = true;
         const state = this.getStateAsDict();
@@ -218,7 +218,7 @@ class QuestionContainer extends Component {
         this.setState({
             isSubmitPressed: true
         })
-        this.isFormComplete();
+        await this.isFormComplete();
         const formCompleted = !this.state.shouldDisableSubmit;
         if (!formCompleted) {
             this.setState({
