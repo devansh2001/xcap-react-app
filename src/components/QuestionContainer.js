@@ -471,6 +471,13 @@ class QuestionContainer extends Component {
                 <Container>
                     <Row style={{justifyContent: 'center', margin: '20px'}}>
                         <div>
+                            If you have any issues using this app, please <a href='mailto:dponda3@gatech.edu'>click here</a> to report it,
+                            or email: <b>dponda3@gatech.edu</b> with subject line: <b>[XCAP BUG] <i>your participant ID</i></b>
+                        </div>
+                    </Row>
+                    <hr/>
+                    <Row style={{justifyContent: 'center', margin: '20px'}}>
+                        <div>
                             <Button onClick={this.props.refresh}> Refresh </Button>
                         </div>
                     </Row>
